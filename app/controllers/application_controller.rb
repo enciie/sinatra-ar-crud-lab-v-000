@@ -27,17 +27,23 @@ class ApplicationController < Sinatra::Base
     erb :show
   end
 
-  get '/posts/:id/edit' do
+  get '/posts/:id/edit' do #loads edit form
     @post = Post.find_by_id(params[:id])
     erb :edit
   end
 
-  patch '/posts/:id' do
+  patch '/posts/:id' do #updates a post
     @post = Post.find_by_id(params[:id])
     @post.name = params[:name]
     @post.content = params[:content]
     @post.save
     erb :show
+  end
+
+  delete '/posts/:id/delete' do #delete action
+    @post = Post.find_by_id(params[:id])
+    @post.delete
+    erb :delete
   end
 
 end
